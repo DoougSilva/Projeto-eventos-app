@@ -1,7 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
-import { Ievents } from '../model/events';
+import { Ievents } from '../../model/events';
 
 @Component({
   selector: 'app-events-list',
@@ -12,17 +11,17 @@ export class EventsListComponent implements OnInit {
 
 
   @Input() events:Ievents[] = [];
+  @Output() add = new EventEmitter(false);
 
   readonly displayedColumns = ['name', 'date', 'dateFinal', 'chamber', 'actions'];
 
-  constructor(private router: Router,
-    private route: ActivatedRoute) { }
+  constructor() { }
 
   ngOnInit(): void {
   }
 
   onAdd() {
-    this.router.navigate(['new'], {relativeTo: this.route});
+    this.add.emit(true);
   }
 
 }

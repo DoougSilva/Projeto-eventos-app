@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { NonNullableFormBuilder } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-import { EventsService } from '../services/events.service';
+import { EventsService } from '../../services/events.service';
 
 @Component({
   selector: 'app-events-form',

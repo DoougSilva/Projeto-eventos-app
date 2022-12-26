@@ -6,6 +6,7 @@
     <app-events-list
     *ngIf="events as events; else loading"
     [events]="events"
+    (add)="onAdd()"
     ></app-events-list>
 
     <ng-template #loading>

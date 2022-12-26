@@ -4,8 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { catchError, Observable, of } from 'rxjs';
 import { ErrorDialogComponent } from 'src/app/shared/components/error-dialog/error-dialog.component';
 
-import { EventsService } from '../services/events.service';
-import { Ievents } from './../model/events';
+import { EventsService } from '../../services/events.service';
+import { Ievents } from '../../model/events';
 
 @Component({
   selector: 'app-events',
