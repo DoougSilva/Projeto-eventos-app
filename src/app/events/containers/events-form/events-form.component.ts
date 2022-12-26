@@ -1,7 +1,9 @@
+import { Ievents } from './../../model/events';
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { NonNullableFormBuilder } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ActivatedRoute } from '@angular/router';
 
 import { EventsService } from '../../services/events.service';
 
@@ -13,19 +15,31 @@ import { EventsService } from '../../services/events.service';
 export class EventsFormComponent implements OnInit {
 
   form = this.formBuilder.group({
+    id: [0],
     name: [''],
     date: [new Date],
     dateFinal: [new Date],
     chamber: [0]
   });
 
+
+
   constructor(private formBuilder: NonNullableFormBuilder,
     private service: EventsService,
     private _snackBar: MatSnackBar,
-    private location: Location) {
+    private location: Location,
+    private route: ActivatedRoute) {
    }
 
   ngOnInit(): void {
+    const event: Ievents = this.route.snapshot.data['event'];
+    this.form.setValue({
+      id: event.id,
+      name: event.name,
+      date: event.date,
+      dateFinal: event.dateFinal,
+      chamber: event.chamber
+    })
   }
 
   onSubmit() {

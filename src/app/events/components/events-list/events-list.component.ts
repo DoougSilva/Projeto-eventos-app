@@ -12,6 +12,7 @@ export class EventsListComponent implements OnInit {
 
   @Input() events:Ievents[] = [];
   @Output() add = new EventEmitter(false);
+  @Output() edit = new EventEmitter(false);
 
   readonly displayedColumns = ['name', 'date', 'dateFinal', 'chamber', 'actions'];
 
@@ -22,6 +23,10 @@ export class EventsListComponent implements OnInit {
 
   onAdd() {
     this.add.emit(true);
+  }
+
+  onEdit(event: Ievents) {
+    this.edit.emit(event);
   }
 
 }

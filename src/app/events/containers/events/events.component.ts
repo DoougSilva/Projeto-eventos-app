@@ -47,4 +47,8 @@ export class EventsComponent implements OnInit {
     this.router.navigate(['new'], {relativeTo: this.route});
   }
 
+  onEdit(event: Ievents) {
+    this.router.navigate(['edit', event.id], {relativeTo: this.route});
+  }
+
 }

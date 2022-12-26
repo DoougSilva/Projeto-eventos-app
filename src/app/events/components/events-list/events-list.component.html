@@ -36,7 +36,7 @@
 
     <mat-cell *matCellDef="let events" class="action-column">
       <button mat-icon-button color="primary" aria-label="update events">
-        <mat-icon>edit</mat-icon>
+        <mat-icon (click)="onEdit(events)">edit</mat-icon>
       </button>
 
       <button mat-icon-button color="warn" aria-label="delete events">

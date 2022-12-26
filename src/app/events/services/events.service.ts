@@ -16,9 +16,12 @@ export class EventsService {
   findAll() {
     return this.htttClient.get<Ievents[]>(this.API)
     .pipe(
-      first(),
-      tap(events => console.log(events))
+      first()
     );
+  }
+
+  findById(id: number) {
+    return this.htttClient.get<Ievents>(`${this.API}/id/${id}`);
   }
 
   save(record: Partial<Ievents>) {
