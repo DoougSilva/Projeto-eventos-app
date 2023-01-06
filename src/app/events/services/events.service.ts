@@ -25,6 +25,21 @@ export class EventsService {
   }
 
   save(record: Partial<Ievents>) {
+    if (record.id){
+      return this.update(record);
+    }
+    return this.create(record);
+  }
+
+  delete(id: number) {
+    return this.htttClient.delete<Ievents>(`${this.API}/del-id/${id}`);
+  }
+
+  private create(record: Partial<Ievents>) {
     return this.htttClient.post<Ievents>(this.API, record);
+  }
+
+  private update(record: Partial<Ievents>) {
+    return this.htttClient.put<Ievents>(`${this.API}/put`, record);
   }
 }

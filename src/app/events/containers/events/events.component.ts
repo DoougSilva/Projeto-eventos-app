@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
-import { catchError, Observable, of } from 'rxjs';
+import { catchError, of } from 'rxjs';
 import { ErrorDialogComponent } from 'src/app/shared/components/error-dialog/error-dialog.component';
 
-import { EventsService } from '../../services/events.service';
 import { Ievents } from '../../model/events';
+import { EventsService } from './../../services/events.service';
 
 @Component({
   selector: 'app-events',
@@ -21,8 +22,12 @@ export class EventsComponent implements OnInit {
     private service:EventsService,
     public dialog: MatDialog,
     private router: Router,
-    private route: ActivatedRoute
-  ) {
+    private route: ActivatedRoute,
+    private _snackBar: MatSnackBar,) {
+      this.refresh();
+    }
+
+  refresh() {
     this.service.findAll()
     .pipe(
       catchError(error => {
@@ -51,4 +56,17 @@ export class EventsComponent implements OnInit {
     this.router.navigate(['edit', event.id], {relativeTo: this.route});
   }
 
+  onDelete(event: Ievents) {
+    this.service.delete(event.id).subscribe(
+      () => {
+        this.refresh();
+        this._snackBar.open("Evento removido com sucesso",'X', { 
+          duration: 3000,
+          verticalPosition: 'top',
+          horizontalPosition: 'center'
+        });
+      },
+      error => this.onError("Erro ao tentar remover evento")
+    );
+  }
 }

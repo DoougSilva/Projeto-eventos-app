@@ -13,6 +13,7 @@ export class EventsListComponent implements OnInit {
   @Input() events:Ievents[] = [];
   @Output() add = new EventEmitter(false);
   @Output() edit = new EventEmitter(false);
+  @Output() delete = new EventEmitter(false);
 
   readonly displayedColumns = ['name', 'date', 'dateFinal', 'chamber', 'actions'];
 
@@ -29,4 +30,7 @@ export class EventsListComponent implements OnInit {
     this.edit.emit(event);
   }
 
+  onDelete(event: Ievents) {
+    this.delete.emit(event);
+  }
 }
