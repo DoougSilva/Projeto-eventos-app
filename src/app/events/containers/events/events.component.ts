@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { catchError, of } from 'rxjs';
+import { ConfirmationDialogComponent } from 'src/app/shared/cofirmation-dialog/cofirmation-dialog/confirmation-dialog.component';
 import { ErrorDialogComponent } from 'src/app/shared/components/error-dialog/error-dialog.component';
 
 import { Ievents } from '../../model/events';
@@ -57,16 +58,24 @@ export class EventsComponent implements OnInit {
   }
 
   onDelete(event: Ievents) {
-    this.service.delete(event.id).subscribe(
-      () => {
-        this.refresh();
-        this._snackBar.open("Evento removido com sucesso",'X', { 
-          duration: 3000,
-          verticalPosition: 'top',
-          horizontalPosition: 'center'
+      const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+        data: 'Tem certeza que deseja remover esse evento?',
+      });
+  
+      dialogRef.afterClosed().subscribe((result: boolean) => {
+        if (result) {
+           this.service.delete(event.id).subscribe(
+              () => {
+              this.refresh();
+              this._snackBar.open("Evento removido com sucesso",'X', { 
+                duration: 3000,
+                verticalPosition: 'top',
+                horizontalPosition: 'center'
         });
       },
       error => this.onError("Erro ao tentar remover evento")
     );
+        }
+      });
   }
 }
